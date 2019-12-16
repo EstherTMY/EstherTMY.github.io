@@ -46,18 +46,18 @@
   };
 </script>
 
-  <meta name="description" content="作者：Mingyue 搭建步骤 海外VPS服务器选择 可参考 https:&#x2F;&#x2F;github.com&#x2F;Captain-Alan&#x2F;VPS-Recommendation 此处我推荐选择   莲花VPS http:&#x2F;&#x2F;www.lotuserver.com&#x2F; 优点：KVM框架+香港服务器（访问速度快）年费 ：99人民币（价格便宜） 缺点：硬盘仅有1GB&#x2F;5GB之类的小容量硬盘，只能用作搭建VPN  威图Vu">
+  <meta name="description" content="作者：Mingyue 本文介绍了如何在Linux(Ubuntu)服务器上进行shadowsocks VPN的搭建。shadowsocks本质上是一种安全的socks5 proxy, 是轻量级的开源的服务器中转包传输工具。但在大陆一般用于socks5 代理服务器，用于搭梯子翻墙。 搭建步骤 海外VPS服务器选择 可参考 https:&#x2F;&#x2F;github.com&#x2F;Captain-Alan&#x2F;VPS-Reco">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Shadowsocks VPN搭建独家配方">
 <meta property="og:url" content="http:&#x2F;&#x2F;mingyuet.info&#x2F;2019&#x2F;12&#x2F;16&#x2F;Shadowsocks%20VPN%E6%90%AD%E5%BB%BA&#x2F;index.html">
 <meta property="og:site_name" content="Eltar&#39;s Space">
-<meta property="og:description" content="作者：Mingyue 搭建步骤 海外VPS服务器选择 可参考 https:&#x2F;&#x2F;github.com&#x2F;Captain-Alan&#x2F;VPS-Recommendation 此处我推荐选择   莲花VPS http:&#x2F;&#x2F;www.lotuserver.com&#x2F; 优点：KVM框架+香港服务器（访问速度快）年费 ：99人民币（价格便宜） 缺点：硬盘仅有1GB&#x2F;5GB之类的小容量硬盘，只能用作搭建VPN  威图Vu">
+<meta property="og:description" content="作者：Mingyue 本文介绍了如何在Linux(Ubuntu)服务器上进行shadowsocks VPN的搭建。shadowsocks本质上是一种安全的socks5 proxy, 是轻量级的开源的服务器中转包传输工具。但在大陆一般用于socks5 代理服务器，用于搭梯子翻墙。 搭建步骤 海外VPS服务器选择 可参考 https:&#x2F;&#x2F;github.com&#x2F;Captain-Alan&#x2F;VPS-Reco">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https:&#x2F;&#x2F;www.yaoblog.info&#x2F;wp-content&#x2F;uploads&#x2F;2011&#x2F;07&#x2F;putty_01.jpg">
 <meta property="og:image" content="https:&#x2F;&#x2F;www.yaoblog.info&#x2F;wp-content&#x2F;uploads&#x2F;2011&#x2F;07&#x2F;putty_02.jpg">
 <meta property="og:image" content="https:&#x2F;&#x2F;www.yaoblog.info&#x2F;wp-content&#x2F;uploads&#x2F;2011&#x2F;07&#x2F;putty_03.jpg">
 <meta property="article:published_time" content="2019-12-16T14:22:00.000Z">
-<meta property="article:modified_time" content="2019-12-16T14:23:25.758Z">
+<meta property="article:modified_time" content="2019-12-16T14:29:43.673Z">
 <meta property="article:author" content="Mingyue">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;www.yaoblog.info&#x2F;wp-content&#x2F;uploads&#x2F;2011&#x2F;07&#x2F;putty_01.jpg">
@@ -207,7 +207,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2019-12-16 22:22:00 / Modified: 22:23:25" itemprop="dateCreated datePublished" datetime="2019-12-16T22:22:00+08:00">2019-12-16</time>
+              <time title="Created: 2019-12-16 22:22:00 / Modified: 22:29:43" itemprop="dateCreated datePublished" datetime="2019-12-16T22:22:00+08:00">2019-12-16</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -247,6 +247,7 @@
 
       
         <p><em>作者：Mingyue</em></p>
+<p>本文介绍了如何在Linux(Ubuntu)服务器上进行shadowsocks VPN的搭建。shadowsocks本质上是一种安全的socks5 proxy, 是轻量级的开源的服务器中转包传输工具。但在大陆一般用于socks5 代理服务器，用于搭梯子翻墙。</p>
 <h3 id="搭建步骤"><a href="#搭建步骤" class="headerlink" title="搭建步骤"></a>搭建步骤</h3><ol>
 <li><p>海外VPS服务器选择</p>
 <p>可参考 <a href="https://github.com/Captain-Alan/VPS-Recommendation" target="_blank" rel="noopener">https://github.com/Captain-Alan/VPS-Recommendation</a></p>
@@ -261,6 +262,7 @@
 </li>
 </ul>
 <p>注：本教程基于Ubuntu系统，请在主机选配时选配Ubuntu。</p>
+<a id="more"></a>
 </li>
 <li><p>登录服务器</p>
 <p><strong>Mac登录方法 – ssh登录</strong></p>

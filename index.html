@@ -202,7 +202,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2019-12-16 22:22:00 / Modified: 22:23:25" itemprop="dateCreated datePublished" datetime="2019-12-16T22:22:00+08:00">2019-12-16</time>
+              <time title="Created: 2019-12-16 22:22:00 / Modified: 22:29:43" itemprop="dateCreated datePublished" datetime="2019-12-16T22:22:00+08:00">2019-12-16</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -242,6 +242,7 @@
 
       
           <p><em>作者：Mingyue</em></p>
+<p>本文介绍了如何在Linux(Ubuntu)服务器上进行shadowsocks VPN的搭建。shadowsocks本质上是一种安全的socks5 proxy, 是轻量级的开源的服务器中转包传输工具。但在大陆一般用于socks5 代理服务器，用于搭梯子翻墙。</p>
 <h3 id="搭建步骤"><a href="#搭建步骤" class="headerlink" title="搭建步骤"></a>搭建步骤</h3><ol>
 <li><p>海外VPS服务器选择</p>
 <p>可参考 <a href="https://github.com/Captain-Alan/VPS-Recommendation" target="_blank" rel="noopener">https://github.com/Captain-Alan/VPS-Recommendation</a></p>
@@ -256,87 +257,14 @@
 </li>
 </ul>
 <p>注：本教程基于Ubuntu系统，请在主机选配时选配Ubuntu。</p>
-</li>
-<li><p>登录服务器</p>
-<p><strong>Mac登录方法 – ssh登录</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh root@vps_ip</span><br></pre></td></tr></table></figure>
-
-<p>vps_ip为服务器的ip地址，填入时记得修改成自己主机的ip地址（root可替换为该服务器的其他用户名）</p>
-<p>执行完该命令后，第一次连接服务器会有安全提示，填入 yes 并按回车</p>
-<p>之后会要求你输入该服务器的密码，输入即可</p>
-<p><strong>Windows登录方法</strong> <strong>– PuTTY登录</strong></p>
-<ol>
-<li><p>下载 <a href="http://the.earth.li/~sgtatham/putty/latest/x86/putty.exe" target="_blank" rel="noopener">PuTTY</a></p>
-</li>
-<li><p>运行，按照下图填写服务器地址和端口（ssh端口一般默认为22），并选择 SSH 类型连接</p>
-<p><img src="https://www.yaoblog.info/wp-content/uploads/2011/07/putty_01.jpg" alt="img"></p>
-<ol start="3">
-<li><p>第一次连接服务器会有安全提示，选择 Yes 即可</p>
-<p><img src="https://www.yaoblog.info/wp-content/uploads/2011/07/putty_02.jpg" alt="img"></p>
-</li>
-<li><p>输入用户名（一般可用root）和密码即可登录服务器</p>
-<p><img src="https://www.yaoblog.info/wp-content/uploads/2011/07/putty_03.jpg" alt="img"></p>
-</li>
-</ol>
-</li>
-</ol>
-</li>
-<li><p>搭建Shadowsocks服务器步骤（以Ubuntu 16.04服务器为例）：</p>
-<p><strong><em>基于系统自带的Python 2.7</em></strong></p>
-<p>1) 安装需要的Python相关组件</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install python-gevent python-pip python-m2crypto python-wheel python-setuptools</span><br></pre></td></tr></table></figure>
-
-<p>2) 安装Shadowsocks</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pip install shadowsocks</span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ol>
-<p>   3) 配置shadowsocks</p>
-<p>   创建shadowsocks.json文件（/etc/shadowsocks.json）</p>
-   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/shadowsocks.json</span><br></pre></td></tr></table></figure>
-
-<p>   按i键进入insert编辑模式，写入以下内容</p>
-   <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"server"</span>:<span class="string">"my_server_ip"</span>,</span><br><span class="line">    <span class="attr">"server_port"</span>:<span class="number">8000</span>,</span><br><span class="line">    <span class="attr">"local_address"</span>: <span class="string">"127.0.0.1"</span>,</span><br><span class="line">    <span class="attr">"local_port"</span>:<span class="number">1080</span>,</span><br><span class="line">    <span class="attr">"password"</span>:<span class="string">"my_password"</span>,</span><br><span class="line">    <span class="attr">"timeout"</span>:<span class="number">300</span>,</span><br><span class="line">    <span class="attr">"method"</span>:<span class="string">"rc4-md5"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>   <strong>写入完成后依次按 esc，依次输入:wq，最后按Enter（回车键）进行写入保存</strong></p>
-<p>   将“my_server_ip”改为VPS的ip地址，ipv4或v6均可。</p>
-<p>   “my_password”改为你想设置的密码，不宜太简单。</p>
-<p>   “server_port”可以自己选择，但要注意不要与本机其他服务的port冲突，最好选择较大的端口号。</p>
-<p>   “method”为加密方法，aes系列（如aes-256-cfb）的加密方法比较安全，但是速度比rc4-md5慢好几倍。</p>
-<p>   可根据个人需求进行更改</p>
-<p>   4）启动服务器与停止服务器</p>
-<p>   <strong>启动</strong></p>
-   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ssserver -c /etc/shadowsocks.json -d start</span><br></pre></td></tr></table></figure>
-
-<p>   <strong>停止</strong></p>
-   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ssserver -c /etc/shadowsocks.json -d stop</span><br></pre></td></tr></table></figure>
-
-<p>   重启服务器后记得重新开启，或者把添加入开机启动项</p>
-<p>   <strong>加入开机启动项</strong></p>
-   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/rc.local</span><br></pre></td></tr></table></figure>
-
-<p>   按i键进入insert编辑模式，在exit 0后写入</p>
-   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ssserver -c /etc/shadowsocks.json</span><br></pre></td></tr></table></figure>
-
-<p>   <strong>写入完成后依次按 esc，依次输入:wq，最后按Enter（回车键）进行写入保存</strong></p>
-<ol start="4">
-<li><p><strong>Shadowsocks VPN的搭建就成功啦<del>~</del></strong></p>
-<p>可以选用不同的客户端，输入以上的用户配置，就可以愉快的墙外网上冲浪了。</p>
-<p><strong>客户端推介：</strong></p>
-<h5 id="Windows："><a href="#Windows：" class="headerlink" title="Windows："></a>Windows：</h5><p><a href="https://github.com/shadowsocks/shadowsocks-windows/releases" target="_blank" rel="noopener">https://github.com/shadowsocks/shadowsocks-windows/releases</a></p>
-<h5 id="Mac"><a href="#Mac" class="headerlink" title="Mac:"></a>Mac:</h5><p><a href="https://github.com/shadowsocks/ShadowsocksX-NG/releases" target="_blank" rel="noopener">https://github.com/shadowsocks/ShadowsocksX-NG/releases</a></p>
-<h5 id="Android："><a href="#Android：" class="headerlink" title="Android："></a>Android：</h5><p><a href="https://github.com/shadowsocks/shadowsocks-android/releases" target="_blank" rel="noopener">https://github.com/shadowsocks/shadowsocks-android/releases</a></p>
-<h5 id="iOS"><a href="#iOS" class="headerlink" title="iOS:"></a>iOS:</h5><p>未越狱只能通过Apple Store安装，在Apple Store内搜索Wingy，找到类似的应用即可使用。</p>
-</li>
-</ol>
-<p><strong>Reference</strong></p>
-<p><a href="https://github.com/Captain-Alan/VPS-Recommendation" target="_blank" rel="noopener">https://github.com/Captain-Alan/VPS-Recommendation</a></p>
-<p><a href="https://www.yaoblog.info/?p=1096" target="_blank" rel="noopener">https://www.yaoblog.info/?p=1096</a></p>
-<p><a href="http://blog.topspeedsnail.com/archives/5119" target="_blank" rel="noopener">http://blog.topspeedsnail.com/archives/5119</a></p>
-<p><a href="https://blog.csdn.net/sjtu_mc/article/details/79207427" target="_blank" rel="noopener">https://blog.csdn.net/sjtu_mc/article/details/79207427</a></p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/12/16/Shadowsocks%20VPN%E6%90%AD%E5%BB%BA/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
