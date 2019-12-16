@@ -57,7 +57,7 @@
 <meta property="og:image" content="https:&#x2F;&#x2F;www.yaoblog.info&#x2F;wp-content&#x2F;uploads&#x2F;2011&#x2F;07&#x2F;putty_02.jpg">
 <meta property="og:image" content="https:&#x2F;&#x2F;www.yaoblog.info&#x2F;wp-content&#x2F;uploads&#x2F;2011&#x2F;07&#x2F;putty_03.jpg">
 <meta property="article:published_time" content="2019-12-16T14:22:00.000Z">
-<meta property="article:modified_time" content="2019-12-16T14:29:43.673Z">
+<meta property="article:modified_time" content="2019-12-16T14:38:25.958Z">
 <meta property="article:author" content="Mingyue">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;www.yaoblog.info&#x2F;wp-content&#x2F;uploads&#x2F;2011&#x2F;07&#x2F;putty_01.jpg">
@@ -207,7 +207,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2019-12-16 22:22:00 / Modified: 22:29:43" itemprop="dateCreated datePublished" datetime="2019-12-16T22:22:00+08:00">2019-12-16</time>
+              <time title="Created: 2019-12-16 22:22:00 / Modified: 22:38:25" itemprop="dateCreated datePublished" datetime="2019-12-16T22:22:00+08:00">2019-12-16</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -293,42 +293,47 @@
 <p>1) 安装需要的Python相关组件</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install python-gevent python-pip python-m2crypto python-wheel python-setuptools</span><br></pre></td></tr></table></figure>
 
-<p>2) 安装Shadowsocks</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pip install shadowsocks</span><br></pre></td></tr></table></figure>
-
 
 
 </li>
 </ol>
-<p>   3) 配置shadowsocks</p>
-<p>   创建shadowsocks.json文件（/etc/shadowsocks.json）</p>
-   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/shadowsocks.json</span><br></pre></td></tr></table></figure>
+<p>   2) 安装Shadowsocks</p>
+   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pip install shadowsocks</span><br></pre></td></tr></table></figure>
 
-<p>   按i键进入insert编辑模式，写入以下内容</p>
-   <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"server"</span>:<span class="string">"my_server_ip"</span>,</span><br><span class="line">    <span class="attr">"server_port"</span>:<span class="number">8000</span>,</span><br><span class="line">    <span class="attr">"local_address"</span>: <span class="string">"127.0.0.1"</span>,</span><br><span class="line">    <span class="attr">"local_port"</span>:<span class="number">1080</span>,</span><br><span class="line">    <span class="attr">"password"</span>:<span class="string">"my_password"</span>,</span><br><span class="line">    <span class="attr">"timeout"</span>:<span class="number">300</span>,</span><br><span class="line">    <span class="attr">"method"</span>:<span class="string">"rc4-md5"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>   <strong>写入完成后依次按 esc，依次输入:wq，最后按Enter（回车键）进行写入保存</strong></p>
-<p>   将“my_server_ip”改为VPS的ip地址，ipv4或v6均可。</p>
-<p>   “my_password”改为你想设置的密码，不宜太简单。</p>
-<p>   “server_port”可以自己选择，但要注意不要与本机其他服务的port冲突，最好选择较大的端口号。</p>
-<p>   “method”为加密方法，aes系列（如aes-256-cfb）的加密方法比较安全，但是速度比rc4-md5慢好几倍。</p>
-<p>   可根据个人需求进行更改</p>
-<p>   4）启动服务器与停止服务器</p>
-<p>   <strong>启动</strong></p>
-   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ssserver -c /etc/shadowsocks.json -d start</span><br></pre></td></tr></table></figure>
 
-<p>   <strong>停止</strong></p>
-   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ssserver -c /etc/shadowsocks.json -d stop</span><br></pre></td></tr></table></figure>
+<p>​    3) 配置shadowsocks</p>
+<pre><code>创建shadowsocks.json文件（/etc/shadowsocks.json）</code></pre><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/shadowsocks.json</span><br></pre></td></tr></table></figure>
 
-<p>   重启服务器后记得重新开启，或者把添加入开机启动项</p>
-<p>   <strong>加入开机启动项</strong></p>
-   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/rc.local</span><br></pre></td></tr></table></figure>
+<pre><code>按i键进入insert编辑模式，写入以下内容</code></pre>   <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"server"</span>:<span class="string">"my_server_ip"</span>,</span><br><span class="line">    <span class="attr">"server_port"</span>:<span class="number">8000</span>,</span><br><span class="line">    <span class="attr">"local_address"</span>: <span class="string">"127.0.0.1"</span>,</span><br><span class="line">    <span class="attr">"local_port"</span>:<span class="number">1080</span>,</span><br><span class="line">    <span class="attr">"password"</span>:<span class="string">"my_password"</span>,</span><br><span class="line">    <span class="attr">"timeout"</span>:<span class="number">300</span>,</span><br><span class="line">    <span class="attr">"method"</span>:<span class="string">"rc4-md5"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>   按i键进入insert编辑模式，在exit 0后写入</p>
-   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ssserver -c /etc/shadowsocks.json</span><br></pre></td></tr></table></figure>
+<pre><code>**写入完成后依次按 esc，依次输入:wq，最后按Enter（回车键）进行写入保存**
 
-<p>   <strong>写入完成后依次按 esc，依次输入:wq，最后按Enter（回车键）进行写入保存</strong></p>
-<ol start="4">
+将“my_server_ip”改为VPS的ip地址，ipv4或v6均可。
+
+“my_password”改为你想设置的密码，不宜太简单。
+
+“server_port”可以自己选择，但要注意不要与本机其他服务的port冲突，最好选择较大的                端口号。
+
+“method”为加密方法，aes系列（如aes-256-cfb）的加密方法比较安全，但是速度比rc4-    md5慢好几倍。
+
+可根据个人需求进行更改
+
+
+
+4）启动服务器与停止服务器
+
+**启动**</code></pre>   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ssserver -c /etc/shadowsocks.json -d start</span><br></pre></td></tr></table></figure>
+
+<pre><code>**停止**</code></pre>   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ssserver -c /etc/shadowsocks.json -d stop</span><br></pre></td></tr></table></figure>
+
+<pre><code>重启服务器后记得重新开启，或者把添加入开机启动项
+
+**加入开机启动项**</code></pre>   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/rc.local</span><br></pre></td></tr></table></figure>
+
+<pre><code>按i键进入insert编辑模式，在exit 0后写入</code></pre>   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ssserver -c /etc/shadowsocks.json</span><br></pre></td></tr></table></figure>
+
+<pre><code>**写入完成后依次按 esc，依次输入:wq，最后按Enter（回车键）进行写入保存**</code></pre><ol start="4">
 <li><p><strong>Shadowsocks VPN的搭建就成功啦<del>~</del></strong></p>
 <p>可以选用不同的客户端，输入以上的用户配置，就可以愉快的墙外网上冲浪了。</p>
 <p><strong>客户端推介：</strong></p>
