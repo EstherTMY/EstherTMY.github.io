@@ -10,16 +10,16 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
   <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-<link rel="stylesheet" href="/css/main.css">
+<link rel="stylesheet" href="css/main.css">
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css">
 
 
 <script id="hexo-configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    hostname: new URL('http://mingyuet.info').hostname,
+    hostname: new URL('EstherTMY.github.io').hostname,
     root: '/',
     scheme: 'Gemini',
     version: '7.6.0',
@@ -49,7 +49,7 @@
   <meta name="description" content="作者：Mingyue 本文介绍了如何在Linux(Ubuntu)服务器上进行shadowsocks VPN的搭建。shadowsocks本质上是一种安全的socks5 proxy, 是轻量级的开源的服务器中转包传输工具。但在大陆一般用于socks5 代理服务器，用于搭梯子翻墙。 搭建步骤 海外VPS服务器选择 可参考 https:&#x2F;&#x2F;github.com&#x2F;Captain-Alan&#x2F;VPS-Reco">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Shadowsocks VPN搭建独家配方">
-<meta property="og:url" content="http:&#x2F;&#x2F;mingyuet.info&#x2F;2019&#x2F;12&#x2F;16&#x2F;Shadowsocks%20VPN%E6%90%AD%E5%BB%BA&#x2F;index.html">
+<meta property="og:url" content="2019&#x2F;12&#x2F;16&#x2F;Shadowsocks%20VPN%E6%90%AD%E5%BB%BA&#x2F;index.html">
 <meta property="og:site_name" content="Eltar&#39;s Space">
 <meta property="og:description" content="作者：Mingyue 本文介绍了如何在Linux(Ubuntu)服务器上进行shadowsocks VPN的搭建。shadowsocks本质上是一种安全的socks5 proxy, 是轻量级的开源的服务器中转包传输工具。但在大陆一般用于socks5 代理服务器，用于搭梯子翻墙。 搭建步骤 海外VPS服务器选择 可参考 https:&#x2F;&#x2F;github.com&#x2F;Captain-Alan&#x2F;VPS-Reco">
 <meta property="og:locale" content="en_US">
@@ -62,7 +62,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;www.yaoblog.info&#x2F;wp-content&#x2F;uploads&#x2F;2011&#x2F;07&#x2F;putty_01.jpg">
 
-<link rel="canonical" href="http://mingyuet.info/2019/12/16/Shadowsocks%20VPN%E6%90%AD%E5%BB%BA/">
+<link rel="canonical" href="2019/12/16/Shadowsocks VPN搭建/">
 
 
 <script id="page-configurations">
@@ -116,7 +116,7 @@
   <div class="site-meta">
 
     <div>
-      <a href="/" class="brand" rel="start">
+      <a href="/" target="_blank" class="brand" rel="start noopener">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">Eltar's Space</span>
         <span class="logo-line-after"><i></i></span>
@@ -139,22 +139,22 @@
   <ul id="menu" class="menu">
         <li class="menu-item menu-item-home">
 
-    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+    <a href="/" target="_blank" rel="section noopener"><i class="fa fa-fw fa-home"></i>Home</a>
 
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags<span class="badge">0</span></a>
+    <a href="/tags/" target="_blank" rel="section noopener"><i class="fa fa-fw fa-tags"></i>Tags<span class="badge">0</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories<span class="badge">2</span></a>
+    <a href="/categories/" target="_blank" rel="section noopener"><i class="fa fa-fw fa-th"></i>Categories<span class="badge">2</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives<span class="badge">3</span></a>
+    <a href="/archives/" target="_blank" rel="section noopener"><i class="fa fa-fw fa-archive"></i>Archives<span class="badge">3</span></a>
 
   </li>
   </ul>
@@ -183,10 +183,10 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
-    <link itemprop="mainEntityOfPage" href="http://mingyuet.info/2019/12/16/Shadowsocks%20VPN%E6%90%AD%E5%BB%BA/">
+    <link itemprop="mainEntityOfPage" href="2019/12/16/Shadowsocks VPN搭建/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="image" content="images/avatar.gif">
       <meta itemprop="name" content="Mingyue">
       <meta itemprop="description" content="自律即自由">
     </span>
@@ -215,7 +215,7 @@
               </span>
               <span class="post-meta-item-text">In</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%B7%A5%E5%85%B7-Tools/" itemprop="url" rel="index">
+                  <a href="categories/工具-Tools/" target="_blank" itemprop="url" rel="index noopener">
                     <span itemprop="name">工具(Tools)</span>
                   </a>
                 </span>
@@ -230,8 +230,8 @@
       </span>
       <span class="post-meta-item-text">Valine: </span>
     
-    <a title="valine" href="/2019/12/16/Shadowsocks%20VPN%E6%90%AD%E5%BB%BA/#comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/16/Shadowsocks%20VPN%E6%90%AD%E5%BB%BA/" itemprop="commentCount"></span>
+    <a title="valine" href="2019/12/16/Shadowsocks VPN搭建/#comments" target="_blank" rel="noopener" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="2019/12/16/Shadowsocks VPN搭建/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -248,7 +248,7 @@
       
         <p><em>作者：Mingyue</em></p>
 <p>本文介绍了如何在Linux(Ubuntu)服务器上进行shadowsocks VPN的搭建。shadowsocks本质上是一种安全的socks5 proxy, 是轻量级的开源的服务器中转包传输工具。但在大陆一般用于socks5 代理服务器，用于搭梯子翻墙。</p>
-<h3 id="搭建步骤"><a href="#搭建步骤" class="headerlink" title="搭建步骤"></a>搭建步骤</h3><ol>
+<h3 id="搭建步骤"><a href="#搭建步骤" target="_blank" rel="noopener" class="headerlink" title="搭建步骤"></a>搭建步骤</h3><ol>
 <li><p>海外VPS服务器选择</p>
 <p>可参考 <a href="https://github.com/Captain-Alan/VPS-Recommendation" target="_blank" rel="noopener">https://github.com/Captain-Alan/VPS-Recommendation</a></p>
 <p>此处我推荐选择 </p>
@@ -337,10 +337,10 @@
 <li><p><strong>Shadowsocks VPN的搭建就成功啦<del>~</del></strong></p>
 <p>可以选用不同的客户端，输入以上的用户配置，就可以愉快的墙外网上冲浪了。</p>
 <p><strong>客户端推介：</strong></p>
-<h5 id="Windows："><a href="#Windows：" class="headerlink" title="Windows："></a>Windows：</h5><p><a href="https://github.com/shadowsocks/shadowsocks-windows/releases" target="_blank" rel="noopener">https://github.com/shadowsocks/shadowsocks-windows/releases</a></p>
-<h5 id="Mac"><a href="#Mac" class="headerlink" title="Mac:"></a>Mac:</h5><p><a href="https://github.com/shadowsocks/ShadowsocksX-NG/releases" target="_blank" rel="noopener">https://github.com/shadowsocks/ShadowsocksX-NG/releases</a></p>
-<h5 id="Android："><a href="#Android：" class="headerlink" title="Android："></a>Android：</h5><p><a href="https://github.com/shadowsocks/shadowsocks-android/releases" target="_blank" rel="noopener">https://github.com/shadowsocks/shadowsocks-android/releases</a></p>
-<h5 id="iOS"><a href="#iOS" class="headerlink" title="iOS:"></a>iOS:</h5><p>未越狱只能通过Apple Store安装，在Apple Store内搜索Wingy，找到类似的应用即可使用。</p>
+<h5 id="Windows："><a href="#Windows：" target="_blank" rel="noopener" class="headerlink" title="Windows："></a>Windows：</h5><p><a href="https://github.com/shadowsocks/shadowsocks-windows/releases" target="_blank" rel="noopener">https://github.com/shadowsocks/shadowsocks-windows/releases</a></p>
+<h5 id="Mac"><a href="#Mac" target="_blank" rel="noopener" class="headerlink" title="Mac:"></a>Mac:</h5><p><a href="https://github.com/shadowsocks/ShadowsocksX-NG/releases" target="_blank" rel="noopener">https://github.com/shadowsocks/ShadowsocksX-NG/releases</a></p>
+<h5 id="Android："><a href="#Android：" target="_blank" rel="noopener" class="headerlink" title="Android："></a>Android：</h5><p><a href="https://github.com/shadowsocks/shadowsocks-android/releases" target="_blank" rel="noopener">https://github.com/shadowsocks/shadowsocks-android/releases</a></p>
+<h5 id="iOS"><a href="#iOS" target="_blank" rel="noopener" class="headerlink" title="iOS:"></a>iOS:</h5><p>未越狱只能通过Apple Store安装，在Apple Store内搜索Wingy，找到类似的应用即可使用。</p>
 </li>
 </ol>
 <p><strong>Reference</strong></p>
@@ -363,11 +363,11 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2019/11/24/Just%20some%20thought/" rel="prev" title="明星大侦探第五季第一期有感">
+    <a href="2019/11/24/Just some thought/" target="_blank" rel="prev noopener" title="明星大侦探第五季第一期有感">
       <i class="fa fa-chevron-left"></i> 明星大侦探第五季第一期有感
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/05/05/%E7%94%B7%E5%A5%B3%E5%B9%B3%E7%AD%89%EF%BC%9F/" rel="next" title="男女平等？">
+    <a href="2020/05/05/男女平等？/" target="_blank" rel="next noopener" title="男女平等？">
       男女平等？ <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
@@ -430,7 +430,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#搭建步骤"><span class="nav-number">1.</span> <span class="nav-text">搭建步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Windows："><span class="nav-number">1.0.1.</span> <span class="nav-text">Windows：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Mac"><span class="nav-number">1.0.2.</span> <span class="nav-text">Mac:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Android："><span class="nav-number">1.0.3.</span> <span class="nav-text">Android：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#iOS"><span class="nav-number">1.0.4.</span> <span class="nav-text">iOS:</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#搭建步骤" target="_blank" rel="noopener"><span class="nav-number">1.</span> <span class="nav-text">搭建步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Windows：" target="_blank" rel="noopener"><span class="nav-number">1.0.1.</span> <span class="nav-text">Windows：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Mac" target="_blank" rel="noopener"><span class="nav-number">1.0.2.</span> <span class="nav-text">Mac:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Android：" target="_blank" rel="noopener"><span class="nav-number">1.0.3.</span> <span class="nav-text">Android：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#iOS" target="_blank" rel="noopener"><span class="nav-number">1.0.4.</span> <span class="nav-text">iOS:</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -442,14 +442,14 @@
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
-          <a href="/archives/">
+          <a href="/archives/" target="_blank" rel="noopener">
         
           <span class="site-state-item-count">3</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
-            <a href="/categories/">
+            <a href="/categories/" target="_blank" rel="noopener">
           
         <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">categories</span></a>
@@ -507,19 +507,19 @@
   </div>
 
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
+  <script src="lib/anime.min.js"></script>
+  <script src="lib/velocity/velocity.min.js"></script>
+  <script src="lib/velocity/velocity.ui.min.js"></script>
 
-<script src="/js/utils.js"></script>
+<script src="js/utils.js"></script>
 
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/pisces.js"></script>
+<script src="js/motion.js"></script>
 
 
-<script src="/js/next-boot.js"></script>
+<script src="js/schemes/pisces.js"></script>
+
+
+<script src="js/next-boot.js"></script>
 
 
 
