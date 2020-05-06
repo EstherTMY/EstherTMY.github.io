@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.1.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('http://mingyuet.info').hostname,
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.6.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="作者：Mingyue 本文介绍了如何在Linux(Ubuntu)服务器上进行shadowsocks VPN的搭建。shadowsocks本质上是一种安全的socks5 proxy, 是轻量级的开源的服务器中转包传输工具。但在大陆一般用于socks5 代理服务器，用于搭梯子翻墙。 搭建步骤 海外VPS服务器选择 可参考 https:&#x2F;&#x2F;github.com&#x2F;Captain-Alan&#x2F;VPS-Reco">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Shadowsocks VPN搭建独家配方">
+<meta property="og:url" content="http:&#x2F;&#x2F;mingyuet.info&#x2F;2019&#x2F;12&#x2F;16&#x2F;Shadowsocks%20VPN%E6%90%AD%E5%BB%BA&#x2F;index.html">
+<meta property="og:site_name" content="Eltar&#39;s Space">
+<meta property="og:description" content="作者：Mingyue 本文介绍了如何在Linux(Ubuntu)服务器上进行shadowsocks VPN的搭建。shadowsocks本质上是一种安全的socks5 proxy, 是轻量级的开源的服务器中转包传输工具。但在大陆一般用于socks5 代理服务器，用于搭梯子翻墙。 搭建步骤 海外VPS服务器选择 可参考 https:&#x2F;&#x2F;github.com&#x2F;Captain-Alan&#x2F;VPS-Reco">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https:&#x2F;&#x2F;www.yaoblog.info&#x2F;wp-content&#x2F;uploads&#x2F;2011&#x2F;07&#x2F;putty_01.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;www.yaoblog.info&#x2F;wp-content&#x2F;uploads&#x2F;2011&#x2F;07&#x2F;putty_02.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;www.yaoblog.info&#x2F;wp-content&#x2F;uploads&#x2F;2011&#x2F;07&#x2F;putty_03.jpg">
+<meta property="article:published_time" content="2019-12-17T03:22:00.000Z">
+<meta property="article:modified_time" content="2019-12-16T14:38:25.000Z">
+<meta property="article:author" content="Mingyue">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;www.yaoblog.info&#x2F;wp-content&#x2F;uploads&#x2F;2011&#x2F;07&#x2F;putty_01.jpg">
+
+<link rel="canonical" href="http://mingyuet.info/2019/12/16/Shadowsocks%20VPN%E6%90%AD%E5%BB%BA/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Shadowsocks VPN搭建独家配方 | Eltar's Space</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Eltar's Space</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags<span class="badge">0</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories<span class="badge">2</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives<span class="badge">3</span></a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="http://mingyuet.info/2019/12/16/Shadowsocks%20VPN%E6%90%AD%E5%BB%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Mingyue">
+      <meta itemprop="description" content="自律即自由">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Eltar's Space">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Shadowsocks VPN搭建独家配方
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-12-16 22:22:00 / Modified: 09:38:25" itemprop="dateCreated datePublished" datetime="2019-12-16T22:22:00-05:00">2019-12-16</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7-Tools/" itemprop="url" rel="index">
+                    <span itemprop="name">工具(Tools)</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Valine: </span>
+    
+    <a title="valine" href="/2019/12/16/Shadowsocks%20VPN%E6%90%AD%E5%BB%BA/#comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2019/12/16/Shadowsocks%20VPN%E6%90%AD%E5%BB%BA/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><em>作者：Mingyue</em></p>
+<p>本文介绍了如何在Linux(Ubuntu)服务器上进行shadowsocks VPN的搭建。shadowsocks本质上是一种安全的socks5 proxy, 是轻量级的开源的服务器中转包传输工具。但在大陆一般用于socks5 代理服务器，用于搭梯子翻墙。</p>
+<h3 id="搭建步骤"><a href="#搭建步骤" class="headerlink" title="搭建步骤"></a>搭建步骤</h3><ol>
+<li><p>海外VPS服务器选择</p>
+<p>可参考 <a href="https://github.com/Captain-Alan/VPS-Recommendation" target="_blank" rel="noopener">https://github.com/Captain-Alan/VPS-Recommendation</a></p>
+<p>此处我推荐选择 </p>
+<ul>
+<li><p><strong>莲花VPS</strong> <a href="http://www.lotuserver.com/" target="_blank" rel="noopener">http://www.lotuserver.com/</a></p>
+<p>优点：KVM框架+香港服务器（访问速度快）年费 ：99人民币（价格便宜）</p>
+<p>缺点：硬盘仅有1GB/5GB之类的小容量硬盘，只能用作搭建VPN</p>
+</li>
+<li><p>威图Vultr VPS <a href="https://www.vultr.com/" target="_blank" rel="noopener">https://www.vultr.com/</a></p>
+<p>5美元10美元任选，稳定速度不错。</p>
+</li>
+</ul>
+<p>注：本教程基于Ubuntu系统，请在主机选配时选配Ubuntu。</p>
+<a id="more"></a>
+</li>
+<li><p>登录服务器</p>
+<p><strong>Mac登录方法 – ssh登录</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh root@vps_ip</span><br></pre></td></tr></table></figure>
+
+<p>vps_ip为服务器的ip地址，填入时记得修改成自己主机的ip地址（root可替换为该服务器的其他用户名）</p>
+<p>执行完该命令后，第一次连接服务器会有安全提示，填入 yes 并按回车</p>
+<p>之后会要求你输入该服务器的密码，输入即可</p>
+<p><strong>Windows登录方法</strong> <strong>– PuTTY登录</strong></p>
+<ol>
+<li><p>下载 <a href="http://the.earth.li/~sgtatham/putty/latest/x86/putty.exe" target="_blank" rel="noopener">PuTTY</a></p>
+</li>
+<li><p>运行，按照下图填写服务器地址和端口（ssh端口一般默认为22），并选择 SSH 类型连接</p>
+<p><img src="https://www.yaoblog.info/wp-content/uploads/2011/07/putty_01.jpg" alt="img"></p>
+<ol start="3">
+<li><p>第一次连接服务器会有安全提示，选择 Yes 即可</p>
+<p><img src="https://www.yaoblog.info/wp-content/uploads/2011/07/putty_02.jpg" alt="img"></p>
+</li>
+<li><p>输入用户名（一般可用root）和密码即可登录服务器</p>
+<p><img src="https://www.yaoblog.info/wp-content/uploads/2011/07/putty_03.jpg" alt="img"></p>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><p>搭建Shadowsocks服务器步骤（以Ubuntu 16.04服务器为例）：</p>
+<p><strong><em>基于系统自带的Python 2.7</em></strong></p>
+<p>1) 安装需要的Python相关组件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo apt-get install python-gevent python-pip python-m2crypto python-wheel python-setuptools</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<p>   2) 安装Shadowsocks</p>
+   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo pip install shadowsocks</span><br></pre></td></tr></table></figure>
+
+
+
+<p>​    3) 配置shadowsocks</p>
+<pre><code>创建shadowsocks.json文件（/etc/shadowsocks.json）</code></pre><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/shadowsocks.json</span><br></pre></td></tr></table></figure>
+
+<pre><code>按i键进入insert编辑模式，写入以下内容</code></pre>   <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"server"</span>:<span class="string">"my_server_ip"</span>,</span><br><span class="line">    <span class="attr">"server_port"</span>:<span class="number">8000</span>,</span><br><span class="line">    <span class="attr">"local_address"</span>: <span class="string">"127.0.0.1"</span>,</span><br><span class="line">    <span class="attr">"local_port"</span>:<span class="number">1080</span>,</span><br><span class="line">    <span class="attr">"password"</span>:<span class="string">"my_password"</span>,</span><br><span class="line">    <span class="attr">"timeout"</span>:<span class="number">300</span>,</span><br><span class="line">    <span class="attr">"method"</span>:<span class="string">"rc4-md5"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<pre><code>**写入完成后依次按 esc，依次输入:wq，最后按Enter（回车键）进行写入保存**
+
+将“my_server_ip”改为VPS的ip地址，ipv4或v6均可。
+
+“my_password”改为你想设置的密码，不宜太简单。
+
+“server_port”可以自己选择，但要注意不要与本机其他服务的port冲突，最好选择较大的                端口号。
+
+“method”为加密方法，aes系列（如aes-256-cfb）的加密方法比较安全，但是速度比rc4-    md5慢好几倍。
+
+可根据个人需求进行更改
+
+
+
+4）启动服务器与停止服务器
+
+**启动**</code></pre>   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ssserver -c /etc/shadowsocks.json -d start</span><br></pre></td></tr></table></figure>
+
+<pre><code>**停止**</code></pre>   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ssserver -c /etc/shadowsocks.json -d stop</span><br></pre></td></tr></table></figure>
+
+<pre><code>重启服务器后记得重新开启，或者把添加入开机启动项
+
+**加入开机启动项**</code></pre>   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/rc.local</span><br></pre></td></tr></table></figure>
+
+<pre><code>按i键进入insert编辑模式，在exit 0后写入</code></pre>   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ssserver -c /etc/shadowsocks.json</span><br></pre></td></tr></table></figure>
+
+<pre><code>**写入完成后依次按 esc，依次输入:wq，最后按Enter（回车键）进行写入保存**</code></pre><ol start="4">
+<li><p><strong>Shadowsocks VPN的搭建就成功啦<del>~</del></strong></p>
+<p>可以选用不同的客户端，输入以上的用户配置，就可以愉快的墙外网上冲浪了。</p>
+<p><strong>客户端推介：</strong></p>
+<h5 id="Windows："><a href="#Windows：" class="headerlink" title="Windows："></a>Windows：</h5><p><a href="https://github.com/shadowsocks/shadowsocks-windows/releases" target="_blank" rel="noopener">https://github.com/shadowsocks/shadowsocks-windows/releases</a></p>
+<h5 id="Mac"><a href="#Mac" class="headerlink" title="Mac:"></a>Mac:</h5><p><a href="https://github.com/shadowsocks/ShadowsocksX-NG/releases" target="_blank" rel="noopener">https://github.com/shadowsocks/ShadowsocksX-NG/releases</a></p>
+<h5 id="Android："><a href="#Android：" class="headerlink" title="Android："></a>Android：</h5><p><a href="https://github.com/shadowsocks/shadowsocks-android/releases" target="_blank" rel="noopener">https://github.com/shadowsocks/shadowsocks-android/releases</a></p>
+<h5 id="iOS"><a href="#iOS" class="headerlink" title="iOS:"></a>iOS:</h5><p>未越狱只能通过Apple Store安装，在Apple Store内搜索Wingy，找到类似的应用即可使用。</p>
+</li>
+</ol>
+<p><strong>Reference</strong></p>
+<p><a href="https://github.com/Captain-Alan/VPS-Recommendation" target="_blank" rel="noopener">https://github.com/Captain-Alan/VPS-Recommendation</a></p>
+<p><a href="https://www.yaoblog.info/?p=1096" target="_blank" rel="noopener">https://www.yaoblog.info/?p=1096</a></p>
+<p><a href="http://blog.topspeedsnail.com/archives/5119" target="_blank" rel="noopener">http://blog.topspeedsnail.com/archives/5119</a></p>
+<p><a href="https://blog.csdn.net/sjtu_mc/article/details/79207427" target="_blank" rel="noopener">https://blog.csdn.net/sjtu_mc/article/details/79207427</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/11/24/Just%20some%20thought/" rel="prev" title="明星大侦探第五季第一期有感">
+      <i class="fa fa-chevron-left"></i> 明星大侦探第五季第一期有感
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/05/05/%E7%94%B7%E5%A5%B3%E5%B9%B3%E7%AD%89%EF%BC%9F/" rel="next" title="男女平等？">
+      男女平等？ <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#搭建步骤"><span class="nav-number">1.</span> <span class="nav-text">搭建步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Windows："><span class="nav-number">1.0.1.</span> <span class="nav-text">Windows：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Mac"><span class="nav-number">1.0.2.</span> <span class="nav-text">Mac:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Android："><span class="nav-number">1.0.3.</span> <span class="nav-text">Android：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#iOS"><span class="nav-number">1.0.4.</span> <span class="nav-text">iOS:</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Mingyue</p>
+  <div class="site-description" itemprop="description">自律即自由</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="mailto:mtang724@gmail.com" title="E-Mail → mailto:mtang724@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Mingyue</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v4.1.1
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.6.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el: '#valine-comments',
+      verify: false,
+      notify: false,
+      appId: '8RnfqUdwDqVPS9QI5Pco5b8z-gzGzoHsz',
+      appKey: 'hBLkR49v8yO3YJ4gwCLo4xT5',
+      placeholder: "Just go go",
+      avatar: 'mm',
+      meta: guest,
+      pageSize: '10' || 10,
+      visitor: false,
+      lang: '' || 'zh-cn',
+      path: location.pathname,
+      recordIP: false,
+      serverURLs: ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
